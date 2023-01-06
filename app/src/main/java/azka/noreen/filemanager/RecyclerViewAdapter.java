@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DecimalFormat;
@@ -145,10 +146,22 @@ context=parent.getContext();
         StorageItemsViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(st.getFileName().endsWith(".txt"))
+                {
+
+                    Intent intent1=new Intent(view.getContext(),FileContents.class);
+                    try {
+                        intent1.putExtra("FileContent",ReadFromFile(st.getFilePath()));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    view.getContext().startActivity(intent1);
+
+                }else{
 
                     Intent intent=new Intent(view.getContext(),BrowseFilesActivity.class);
                     intent.putExtra("RootPath",st.getFilePath());
-                    view.getContext().startActivity(intent);
+                    view.getContext().startActivity(intent);}
 
             }
         });
@@ -181,6 +194,25 @@ context=parent.getContext();
 
     }
     }
+    public String ReadFromFile(String filePath) throws IOException {
+        File file=new File(filePath);
+        int size=(int)file.length();
+
+        byte[] array = new byte[(int)file.length()];
+        FileInputStream inputStream = new FileInputStream(filePath);
+
+        try {
+            inputStream.read(array);
+        }catch(Exception e){
+
+        }
+        finally {
+            inputStream.close();
+        }
+        return new String(array);
+
+    }
+
     public void showDetails(Activity activity,StorageItems storageItems){
         final Dialog dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);  //don't show dialog default title

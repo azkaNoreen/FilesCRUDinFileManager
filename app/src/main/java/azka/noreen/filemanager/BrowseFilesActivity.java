@@ -58,6 +58,8 @@ public class BrowseFilesActivity extends AppCompatActivity {
         File file=new File(rootPath);
         File[] childFiles = file.listFiles();
 
+
+
         if(childFiles==null||childFiles.length==0)
         {
             text.setVisibility(View.VISIBLE);
