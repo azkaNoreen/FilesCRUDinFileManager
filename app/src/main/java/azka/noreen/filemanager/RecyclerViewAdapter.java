@@ -1,5 +1,7 @@
 package azka.noreen.filemanager;
 
+import static java.lang.Math.floor;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -22,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -63,11 +66,11 @@ context=parent.getContext();
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         // Toast message on menu item clicked
 //                        Toast.makeText(view.getContext(), "You Clicked " + menuItem.getTitle(), Toast.LENGTH_SHORT).show();
+                        BrowseFilesActivity activity =  ((BrowseFilesActivity) StorageItemsViewHolder.itemView.getContext());
                         switch((String)menuItem.getTitle()) {
                             case "Rename":
                                Toast.makeText(view.getContext(), "You Clicked " + menuItem.getTitle(), Toast.LENGTH_SHORT).show();
 
-                                BrowseFilesActivity activity =  ((BrowseFilesActivity) StorageItemsViewHolder.itemView.getContext());
                                 if(type==2)
                                 showDialog(activity,2,st,position);
                                 else
@@ -80,8 +83,8 @@ context=parent.getContext();
                                     e.printStackTrace();
                                 }
                                 break;
-                            case "details":
-                                // code block
+                            case "Details":
+                                showDetails(activity,st);
                                 break;
                             default:
                                 // code block
@@ -169,6 +172,58 @@ context=parent.getContext();
 
 
     }
+    }
+    public void showDetails(Activity activity,StorageItems storageItems){
+        final Dialog dialog = new Dialog(activity);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);  //don't show dialog default title
+        dialog.setCancelable(false); //don't dismiss the dialog if other area is selected
+        dialog.setContentView(R.layout.detailslayout);
+
+        TextView name = (TextView) dialog.findViewById(R.id.name);
+        TextView path = (TextView) dialog.findViewById(R.id.path);
+        TextView size = (TextView) dialog.findViewById(R.id.size);
+        Button ok = (Button) dialog.findViewById(R.id.ok);
+
+        name.setText("Name: "+storageItems.getFileName().toString());
+        path.setText("Path: "+storageItems.getFilePath().toString());
+        size.setText("Size: "+folderSize(storageItems.getFilePath()).toString());
+
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+    public String folderSize(String path){
+        File file=new File(path);
+        double size = (double) getFolderSize(file); // Get size and convert bytes into KB.
+
+        if (size >= 1024) {
+            if((size/1024)>1024)
+            {
+                if(((size/1024)/1024)>1024)
+                {
+                    return floor(((size / 1024)/1024)/1024)+ " GB";
+                }
+                return floor((size / 1024)/1024)+ " MB";
+            }
+            return floor(size / 1024) + " KB";
+        } else {
+            return size + " B";
+        }
+    }
+    public static long getFolderSize(File file) {
+        long size = 0;
+        if (file.isDirectory()) {
+            for (File child : file.listFiles()) {
+                size += getFolderSize(child);
+            }
+        } else {
+            size = file.length();
+        }
+        return size;
     }
     public void showDialog(Activity activity, int type,StorageItems storageItems,int pos){
         final Dialog dialog = new Dialog(activity);
