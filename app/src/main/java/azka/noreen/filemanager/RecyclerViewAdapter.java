@@ -73,8 +73,12 @@ context=parent.getContext();
                                 else
                                     showDialog(activity,1,st,position);
                                 break;
-                            case "delete":
-                                // code block
+                            case "Delete":
+                                try {
+                                    DeleteFile(st.getFilePath(),position);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
                                 break;
                             case "details":
                                 // code block
@@ -247,5 +251,28 @@ context=parent.getContext();
         notifyItemChanged(pos);
 
     }
+    public void DeleteFile(String path,int position) throws IOException {
+        File file=new File(path);
 
+        if(file.exists()){
+            if (file.isDirectory())
+            {
+                String[] children = file.list();
+                for (int i = 0; i < children.length; i++)
+                {
+                    new File(file, children[i]).delete();
+                }
+                Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show();
+            }
+            boolean success =file.delete();
+            if(success){
+                StorageItemsArrayList.remove( position);
+            notifyItemRemoved(position);
+            notifyItemRangeChanged(position,getItemCount());
+            Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show();}
+                }
+        else{
+            Toast.makeText(context, "file does not exist Exists", Toast.LENGTH_SHORT).show();
+        }
+    }
 }
