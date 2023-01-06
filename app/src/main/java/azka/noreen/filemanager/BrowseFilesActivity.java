@@ -119,11 +119,13 @@ public class BrowseFilesActivity extends AppCompatActivity {
                     }
                 }
                 else if(type==2){
+
                     try {
                         CreateFile(rootPath,text.getText().toString().trim());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+
                 }
 //                Toast.makeText(BrowseFilesActivity.this, "added", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
@@ -168,21 +170,46 @@ public class BrowseFilesActivity extends AppCompatActivity {
     public void CreateFile(String folderPath,String fileName) throws IOException {
 //        String rootPath = Environment.getExternalStorageDirectory().getAbsolutePath();
         String filePath=folderPath+"/"+fileName+".txt";
-        Toast.makeText(this, "|"+filePath+"|", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "|"+filePath+"|", Toast.LENGTH_SHORT).show();
 
         File file=new File(filePath);
+
         if(!file.exists()){
+
             if(file.createNewFile())
             {
+                Toast.makeText(this, "|"+filePath+"|", Toast.LENGTH_SHORT).show();
+
                 Toast.makeText(this, "File Created Successfully", Toast.LENGTH_SHORT).show();
                 StorageItems storageItems=new StorageItems(fileName,filePath);
                 studentArrayList.add(storageItems);
-                rva.notifyItemInserted(studentArrayList.size());}
+                File files=new File(folderPath);
+                File[] childFiles = files.listFiles();
+
+                if(childFiles.length==1)
+                {
+                    text.setVisibility(View.GONE);
+                    InitRecycleView();
+                }
+                else{
+//                    RecyclerView.Adapter adapter = recycleView.getAdapter();
+//                    recycleView.setAdapter(adapter);
+//                    recycleView.setLayoutManager(new LinearLayoutManager(this));
+//                    rva.setData(studentArrayList);
+//                    InitRecycleView();
+
+//                    rva.notifyItemChanged(studentArrayList.size(),storageItems);
+                    rva.notifyItemInserted(studentArrayList.size());
+                }
+
+            }
             else
                 Toast.makeText(this, "Sorry!not created", Toast.LENGTH_SHORT).show();
         }
         else{
             Toast.makeText(this, "file Already Exists", Toast.LENGTH_SHORT).show();
         }
+
+
     }
 }
