@@ -181,17 +181,17 @@ context=parent.getContext();
             public void onClick(View v) {
 
                 if(type==1){
-//                    try {
-//
-//                        RenameFile(storageItems.getFilePath(),text.getText().toString());
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
+                    try {
+
+                        RenameFolder(storageItems.getFilePath(),storageItems.getFileName(),text.getText().toString(),pos);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
                 else if(type==2){
 
                     try {
-                        RenameFile(storageItems.getFilePath(),storageItems.getFileName(),text.getText().toString(),pos);
+                        RenameFile(storageItems.getFilePath(),text.getText().toString(),pos);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -214,7 +214,7 @@ context=parent.getContext();
         });
         dialog.show();
     }
-    public void RenameFile(String path,String name,String rname,int pos) throws IOException {
+    public void RenameFile(String path,String rname,int pos) throws IOException {
 
         File file=new File(path);
         String folderPath=path.substring(0,path.lastIndexOf("/"));
@@ -234,6 +234,18 @@ context=parent.getContext();
         else{
             Toast.makeText(context, "file does not exist Exists", Toast.LENGTH_SHORT).show();
         }
+    }
+    public void RenameFolder(String path,String name,String rname,int pos) throws IOException {
+
+        File oldFolder = new File(path.substring(0,path.lastIndexOf("/")),name);
+        File newFolder = new File(path.substring(0,path.lastIndexOf("/")),rname);
+        boolean success = oldFolder.renameTo(newFolder);
+        if(success)
+        Toast.makeText(context, "Folder Renamed Successfully", Toast.LENGTH_SHORT).show();
+        StorageItemsArrayList.set( pos,new StorageItems(rname,path.substring(0,path.lastIndexOf("/"))+"/"+rname));
+
+        notifyItemChanged(pos);
+
     }
 
 }
