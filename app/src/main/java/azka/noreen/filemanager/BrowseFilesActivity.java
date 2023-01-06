@@ -158,7 +158,17 @@ public class BrowseFilesActivity extends AppCompatActivity {
                 Toast.makeText(this, "Folder Created Successfully", Toast.LENGTH_SHORT).show();
                 StorageItems storageItems=new StorageItems(folderName,folderPath);
                 studentArrayList.add(storageItems);
-                rva.notifyItemInserted(studentArrayList.size());
+                File files=new File(FolderPath);
+                File[] childFiles = files.listFiles();
+
+                if(childFiles.length==1)
+                {
+                    text.setVisibility(View.GONE);
+                    InitRecycleView();
+                }
+                else{
+                    rva.notifyItemInserted(studentArrayList.size());
+                }
             }
             else
                 Toast.makeText(this, "Sorry!not created", Toast.LENGTH_SHORT).show();
@@ -170,7 +180,6 @@ public class BrowseFilesActivity extends AppCompatActivity {
     public void CreateFile(String folderPath,String fileName) throws IOException {
 //        String rootPath = Environment.getExternalStorageDirectory().getAbsolutePath();
         String filePath=folderPath+"/"+fileName+".txt";
-//        Toast.makeText(this, "|"+filePath+"|", Toast.LENGTH_SHORT).show();
 
         File file=new File(filePath);
 
@@ -178,10 +187,9 @@ public class BrowseFilesActivity extends AppCompatActivity {
 
             if(file.createNewFile())
             {
-                Toast.makeText(this, "|"+filePath+"|", Toast.LENGTH_SHORT).show();
 
                 Toast.makeText(this, "File Created Successfully", Toast.LENGTH_SHORT).show();
-                StorageItems storageItems=new StorageItems(fileName,filePath);
+                StorageItems storageItems=new StorageItems(fileName+".txt",filePath);
                 studentArrayList.add(storageItems);
                 File files=new File(folderPath);
                 File[] childFiles = files.listFiles();
@@ -192,13 +200,6 @@ public class BrowseFilesActivity extends AppCompatActivity {
                     InitRecycleView();
                 }
                 else{
-//                    RecyclerView.Adapter adapter = recycleView.getAdapter();
-//                    recycleView.setAdapter(adapter);
-//                    recycleView.setLayoutManager(new LinearLayoutManager(this));
-//                    rva.setData(studentArrayList);
-//                    InitRecycleView();
-
-//                    rva.notifyItemChanged(studentArrayList.size(),storageItems);
                     rva.notifyItemInserted(studentArrayList.size());
                 }
 

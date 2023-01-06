@@ -59,6 +59,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             StorageItemsViewHolder.img.setImageResource(R.drawable.ic_baseline_text_snippet_24);
         }
         else{
+
             StorageItemsViewHolder.img.setImageResource(R.drawable.ic_baseline_insert_drive_file_24);
 
         }
