@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -53,14 +54,17 @@ context=parent.getContext();
         StorageItemsViewHolder.more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int type;
-                if(st.getFileName().endsWith(".txt"))
-                    type=2;
-                //file
-                else
-                    type=1;
+
                 PopupMenu popupMenu=new PopupMenu(view.getContext(), StorageItemsViewHolder.more);
                 popupMenu.getMenuInflater().inflate(R.menu.popupmenun, popupMenu.getMenu());
+                int type;
+                if(st.getFileName().endsWith(".txt"))
+                { type=2;
+                }
+                else {
+                    type = 1;
+                    popupMenu.getMenu().findItem(R.id.write).setVisible(false);
+                }
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
@@ -70,7 +74,6 @@ context=parent.getContext();
                         switch((String)menuItem.getTitle()) {
                             case "Rename":
                                Toast.makeText(view.getContext(), "You Clicked " + menuItem.getTitle(), Toast.LENGTH_SHORT).show();
-
                                 if(type==2)
                                 showDialog(activity,2,st,position);
                                 else
@@ -85,6 +88,11 @@ context=parent.getContext();
                                 break;
                             case "Details":
                                 showDetails(activity,st);
+                                break;
+                            case "Write":
+
+                                    fileEditor(activity,st);
+
                                 break;
                             default:
                                 // code block
@@ -224,6 +232,56 @@ context=parent.getContext();
             size = file.length();
         }
         return size;
+    }
+    public void fileEditor(Activity activity,StorageItems storageItems){
+        final Dialog dialog = new Dialog(activity);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);  //don't show dialog default title
+        dialog.setCancelable(false); //don't dismiss the dialog if other area is selected
+        dialog.setContentView(R.layout.dialoglayout);
+
+        TextView text = (TextView) dialog.findViewById(R.id.name);
+
+
+        Button dialogButton = (Button) dialog.findViewById(R.id.ok);
+        dialogButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean success=false;
+                try {
+                    success=WriteInFile(storageItems.getFilePath(),text.getText().toString());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if(success){
+                    Toast.makeText(context, "File Written Successfully", Toast.LENGTH_SHORT).show();
+                }
+                dialog.dismiss();
+
+            }
+        });
+        Button cancel = (Button) dialog.findViewById(R.id.cancel);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(v.getContext(), "cancel", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+
+            }
+        });
+        dialog.show();
+    }
+    public boolean WriteInFile(String filePath,String fileText) throws IOException {
+        try{
+            FileOutputStream stream=new FileOutputStream(filePath);
+            try{
+                stream.write(fileText.getBytes());
+            }finally {
+                stream.close();
+            }
+        }
+        catch(Exception e){
+        }
+        return true;
     }
     public void showDialog(Activity activity, int type,StorageItems storageItems,int pos){
         final Dialog dialog = new Dialog(activity);
