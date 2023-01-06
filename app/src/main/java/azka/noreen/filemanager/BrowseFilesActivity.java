@@ -22,6 +22,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,6 +46,7 @@ public class BrowseFilesActivity extends AppCompatActivity {
         text=findViewById(R.id.text);
         text.setVisibility(View.GONE);
         toolbar=findViewById(R.id.toolba);
+
 
         setSupportActionBar(toolbar); //set toolbar to act as action bar
         Drawable drawable = ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_baseline_add_circle_24);

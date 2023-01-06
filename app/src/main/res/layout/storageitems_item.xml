@@ -5,7 +5,6 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:paddingVertical="5dp">
-
     <ImageView
         android:id="@+id/img"
         android:layout_width="wrap_content"
@@ -15,10 +14,12 @@
         android:src="@drawable/ic_folder"
         />
 
+
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_weight="5">
 
         <TextView
             android:id="@+id/fileName"
@@ -38,4 +39,15 @@
             android:textSize="11sp" />
 
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/option"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="12dp"
+        android:src="@drawable/ic_baseline_more_vert_24"
+        android:layout_weight="0"
+
+        />
 </LinearLayout>
