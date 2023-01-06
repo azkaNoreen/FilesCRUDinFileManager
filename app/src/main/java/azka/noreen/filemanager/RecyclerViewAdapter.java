@@ -74,7 +74,6 @@ context=parent.getContext();
                         BrowseFilesActivity activity =  ((BrowseFilesActivity) StorageItemsViewHolder.itemView.getContext());
                         switch((String)menuItem.getTitle()) {
                             case "Rename":
-                               Toast.makeText(view.getContext(), "You Clicked " + menuItem.getTitle(), Toast.LENGTH_SHORT).show();
                                 if(type==2)
                                 showDialog(activity,2,st,position);
                                 else
@@ -275,6 +274,9 @@ context=parent.getContext();
 
 
         Button dialogButton = (Button) dialog.findViewById(R.id.ok);
+        TextView hint = (TextView) dialog.findViewById(R.id.name);
+        hint.setHint("Enter Content");
+
         dialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

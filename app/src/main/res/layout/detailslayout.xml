@@ -2,43 +2,64 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_marginLeft="20dp"
+    android:orientation="vertical"
+    android:layout_marginRight="20dp"
+    android:layout_marginTop="30dp">
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Enter Name"
+        android:textColorHint="@color/black"
         android:id="@+id/name"
+        android:textColor="#000"
+        android:textStyle="italic"
+        android:textSize="18sp"
+
+        />
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Name"
-        android:textSize="32sp"
-        android:layout_gravity="center"
-        android:textColor="@color/teal_700"
-        android:textStyle="bold"
-        ></TextView>
-    <TextView
+        android:hint="Enter Name"
+        android:textColorHint="@color/black"
         android:id="@+id/path"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Path"
-        android:textSize="32sp"
-        android:layout_gravity="center"
-        android:textColor="@color/teal_700"
-        android:textStyle="bold"
-        ></TextView>
+        android:textColor="#000"
+        android:textStyle="italic"
+        android:textSize="18sp"
+
+        />
     <TextView
-        android:id="@+id/size"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Size"
-        android:textSize="32sp"
-        android:layout_gravity="center"
-        android:textColor="@color/teal_700"
-        android:textStyle="bold"
-        ></TextView>
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:hint="Enter Name"
+    android:textColorHint="@color/black"
+    android:id="@+id/size"
+    android:textColor="#000"
+    android:textStyle="italic"
+    android:textSize="18sp"
+
+    />
+
+<!--    <TextView-->
+<!--        android:id="@+id/size"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:hint="Size"-->
+<!--        android:textSize="32sp"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:textColor="@color/teal_700"-->
+<!--        android:textStyle="bold"-->
+<!--        ></TextView>-->
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ok"
-        android:layout_gravity="center"
+        android:text="OK"
         android:id="@+id/ok"
-        ></Button>
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_margin="6dp"
+        android:textSize="11sp"
+        />
+
 </LinearLayout>

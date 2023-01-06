@@ -63,7 +63,7 @@ public class BrowseFilesActivity extends AppCompatActivity {
         if(childFiles==null||childFiles.length==0)
         {
             text.setVisibility(View.VISIBLE);
-            text.setText(rootPath);
+            text.setText("No files");
             return;
         }
         for(int i=0; i<childFiles.length; i++){
@@ -77,6 +77,7 @@ public class BrowseFilesActivity extends AppCompatActivity {
     public void InitRecycleView(){
         rva=new RecyclerViewAdapter();
         recycleView.setAdapter(rva);
+        recycleView.addItemDecoration(new SimpleDividerItemDecoration(this));
         recycleView.setLayoutManager(new LinearLayoutManager(this));
         rva.setData(studentArrayList);
 

@@ -4,10 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FileContents">
+    tools:context=".FileContents"
+    android:layout_margin="30dp">
+
     <TextView
-        android:id="@+id/con"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"></TextView>
+        android:layout_height="wrap_content"
+        android:hint="Enter Name"
+        android:textColorHint="@color/black"
+        android:id="@+id/con"
+        android:textColor="#000"
+        android:textStyle="italic"
+        android:textSize="18sp"
+
+        />
 
 </RelativeLayout>
