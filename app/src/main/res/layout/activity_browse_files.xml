@@ -6,7 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".BrowseFilesActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/teal_700"
+        app:titleTextColor="@color/white"
+        android:id="@+id/toolba"
 
+        ></androidx.appcompat.widget.Toolbar>
     <TextView
         android:id="@+id/text"
         android:layout_width="wrap_content"
@@ -14,12 +21,14 @@
         android:text="This is Recycler View"
         android:textSize="11sp"
         android:hint="black"
-        app:drawableTint="#000000"></TextView>
+        app:drawableTint="#000000"
+        android:layout_below="@id/toolba"></TextView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/toolba"
 
         ></androidx.recyclerview.widget.RecyclerView>
 
