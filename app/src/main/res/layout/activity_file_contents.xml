@@ -10,7 +10,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Enter Name"
         android:textColorHint="@color/black"
         android:id="@+id/con"
         android:textColor="#000"

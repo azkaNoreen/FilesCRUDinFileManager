@@ -282,7 +282,11 @@ context=parent.getContext();
             public void onClick(View v) {
                 boolean success=false;
                 try {
+                    if(!text.getText().toString().equals(""))
                     success=WriteInFile(storageItems.getFilePath(),text.getText().toString());
+                    else
+                        Toast.makeText(context, "NOthing written", Toast.LENGTH_SHORT).show();
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
