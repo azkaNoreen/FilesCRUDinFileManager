@@ -116,7 +116,7 @@ context=parent.getContext();
         {
             StorageItemsViewHolder.img.setImageResource(R.drawable.ic_music);
 
-        }else if(st.getFileName().endsWith(".jpg")||st.getFileName().endsWith(".jpeg")||st.getFileName().endsWith(".webp"))
+        }else if(st.getFileName().endsWith(".jpg")||st.getFileName().endsWith(".jpeg")||st.getFileName().endsWith(".webp")||st.getFileName().endsWith(".png"))
         {
             StorageItemsViewHolder.img.setImageResource(R.drawable.ic_baseline_image_24);
         }
